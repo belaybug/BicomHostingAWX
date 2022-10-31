@@ -1,15 +1,14 @@
 ---
 
-- name: Network Getting Started First Playbook
-  connection: ansible.netcommon.network_cli
+- name: Show status of Zpool from primary storages
+  hosts: primarystorages
   gather_facts: false
-  hosts: all
   tasks:
 
-    - name: Get config for VyOS devices
-      vyos.vyos.vyos_facts:
-        gather_subset: all
+  - name: check primary storages zpool status
+    shell:
+      cmd: zpool status | grep "pool\|state"
+    register: command_output
 
-    - name: Display the config
-      debug:
-        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
+  - debug:
+      var: command_output.stdout_lines
