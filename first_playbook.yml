@@ -1,7 +1,7 @@
 ---
 
 - name: Show status of Zpool from primary storages
-  hosts: primarystorages
+  hosts: all
   gather_facts: false
   tasks:
 
